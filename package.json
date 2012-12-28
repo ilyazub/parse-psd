@@ -1,0 +1,12 @@
+{
+	"name": "parse-psd",
+	"version": "0.0.2",
+	"author": "Ilya Zub <zaoooza92@gmail.com>",
+	"dependencies": {
+		"coffee-script": ">= 1.4.x"
+	},
+	"engines": {
+		"node": ">= 0.8.x",
+		"npm": ">= 1.1.x"
+	}
+}
