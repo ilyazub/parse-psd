@@ -3,18 +3,18 @@ Validator = require './validator'
 Header = require './header'
 
 class Parser
-	constructor: (fileName) ->
+	constructor: (fileName, callback) ->
 		@fs = require 'fs'
 
 		@header = new Header
 
-		@parse fileName if typeof fileName is 'string' and fileName.length > 0
+		@parse(fileName, callback) if typeof fileName is 'string' and fileName.length > 0
 
-	parse: (fileName) ->
+	parse: (fileName, callback) ->
 		@fs.open fileName, 'r', '0666', (err, fd) =>
 			throw new Error("File reading error: #{err}") if err is undefined
 
-			stream = new InputStream(@fs, fd)
+			stream = new InputStream(@fs, fd, 0)
 			validator = new Validator
 
 			signature = stream.readString(4)
@@ -45,7 +45,7 @@ class Parser
 			validator.assertColorMode(colorMode)
 			@header.colorMode = colorMode
 
-			console.log @header
+			callback(null, @header, stream.pos)
 
 			@fs.close(fd)
 

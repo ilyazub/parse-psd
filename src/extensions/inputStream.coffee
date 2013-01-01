@@ -1,6 +1,5 @@
 class InputStream
-	constructor: (@stream, @descriptor) ->
-		@pos = 0
+	constructor: (@stream, @descriptor, @pos = 0) ->
 
 	read: (length) ->
 		buffer = new Buffer(length)
