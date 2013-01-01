@@ -1,9 +1,9 @@
 class InputStream
-	constructor: (@stream, @descriptor, @pos = 0) ->
+	constructor: (@stream, @descriptor, @position = 0) ->
 
 	read: (length) ->
 		buffer = new Buffer(length)
-		@pos += @stream.readSync(@descriptor, buffer, 0, length, @pos)
+		@position += @stream.readSync(@descriptor, buffer, 0, length, @position)
 
 		buffer
 
@@ -17,7 +17,7 @@ class InputStream
 			@read(length).toString('UTF-8')
 
 	skip: (length = 1) ->
-		@pos += length if length > 0
+		@position += length if length > 0
 
 	readInt: ->
 		buffer = @read(4)

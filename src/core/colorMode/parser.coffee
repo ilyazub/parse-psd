@@ -1,15 +1,17 @@
 HeaderSpec = require '../header/spec'
 InputStream = require '../../extensions/inputStream'
-
+ColorMode = require './colorMode'
 class Parser
 	constructor: (fileName, header, bufferPosition, callback) ->
 		@fs = require 'fs'
-		@_colorMode = require './colorMode'
+		@_colorMode = new ColorMode
 
 		@parse fileName, header.colorMode, bufferPosition, callback
 
 	parse: (fileName, colorMode, bufferPosition, callback) ->
 		@fs.open fileName, 'r', '0666', (err, fd) =>
+			throw err if err
+
 			stream = new InputStream(@fs, fd, bufferPosition)
 
 			if colorMode is HeaderSpec.colorModes.Indexed
@@ -22,6 +24,6 @@ class Parser
 			else
 				stream.skip(4)
 
-			callback()
+			callback(null, stream.position)
 
 module.exports = Parser

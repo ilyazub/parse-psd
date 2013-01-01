@@ -45,7 +45,7 @@ class Parser
 			validator.assertColorMode(colorMode)
 			@header.colorMode = colorMode
 
-			callback(null, @header, stream.pos)
+			callback(null, @header, stream.position)
 
 			@fs.close(fd)
 
