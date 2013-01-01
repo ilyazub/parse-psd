@@ -1,4 +1,4 @@
-PSD file parser.
+Node.js PSD file parser.
 
 # Status:
 	* Header mode parsed with validation
