@@ -7,3 +7,4 @@ Node.js PSD file parser.
 # Tasks:
 	* Move file reading method with callback into a separate file
 	* Add parents to modules - maybe it will help to add and resolve namespaces
+	* Parse image resource blocks
