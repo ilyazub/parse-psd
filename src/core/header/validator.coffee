@@ -3,17 +3,13 @@ Spec = require './spec'
 class Validator
 	constructor: ->
 		@assert = require 'assert'
-		@spec = Spec
 		@version = -1
 
-	assert: (condition, failMessage) ->
-		@assert(condition, failMessage)
-
 	assertSignature: (signature) ->
-		@assert(signature is @spec.signature, "Signature: always equal to '#{@spec.signature}'. Your value: #{signature}")
+		@assert(signature is Spec.signature, "Signature: always equal to '#{Spec.signature}'. Your value: #{signature}")
 
 	assertVersion: (@version) ->
-		@assert(@version in @spec.supportedVersions, "Supported version: always equal to #{@spec.supportedVersions[0]} (**PSB** version is #{@spec.supportedVersions[1]}.). Your value: #{@spec.version}")
+		@assert(@version in Spec.supportedVersions, "Supported version: always equal to #{Spec.supportedVersions[0]} (**PSB** version is #{Spec.supportedVersions[1]}.). Your value: #{Spec.version}")
 
 	assertChannels: (channels) ->
 		@assert(1 < channels < 56, "Number of channels range is 1 to 56. Your value: #{channels}")
@@ -25,9 +21,9 @@ class Validator
 		@assert((@version is 1 and 1 < width < 30000) or (@version is 2 and 1 < width < 300000), "Supported width range is 1 to 30,000 (**PSB** max of 300,000.). Your value: #{width}")
 
 	assertDepth: (depth) ->
-		@assert(depth in @spec.supportedDepths, "Supported depths are #{@spec.supportedDepths}. Your value: #{depth}")
+		@assert(depth in Spec.supportedDepths, "Supported depths are #{Spec.supportedDepths}. Your value: #{depth}")
 
 	assertColorMode: (colorMode) ->
-		@assert(colorMode in @spec.supportedColorModes, "Supported color modes: #{@spec.supportedColorModes}")
+		@assert(colorMode in Spec.supportedColorModes, "Supported color modes: #{Spec.supportedColorModes}")
 
 module.exports = Validator

@@ -5,6 +5,4 @@ Node.js PSD file parser.
 	* Color mode checked for mode
 
 # Tasks:
-	* Move file reading method with callback into a separate file
-	* Add parents to modules - maybe it will help to add and resolve namespaces
-	* Parse image resource blocks
+	* To do: parse image resource block data.

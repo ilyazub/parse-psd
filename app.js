@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var HeaderParser = require('./lib/core/header/parser');
 var ColorModeParser = require('./lib/core/colorMode/parser');
 var ImageResourceParser = require('./lib/core/image-resources/parser');

@@ -1,4 +1,4 @@
 class ColorMode
-	constructor: (@colorData) ->
+	constructor: (@colorDataLength, @colorData) ->
 
 module.exports = ColorMode

@@ -1,28 +1,26 @@
-HeaderSpec = require '../header/spec'
 InputStream = require '../../extensions/inputStream'
 ColorMode = require './colorMode'
+Validator = require './validator'
+
 class Parser
-	constructor: (fileName, header, bufferPosition, callback) ->
+	constructor: (fileName, header, position, callback) ->
 		@fs = require 'fs'
-		@_colorMode = new ColorMode
 
-		@parse fileName, header.colorMode, bufferPosition, callback
+		@parse(fileName, header.colorMode, position, callback)
 
-	parse: (fileName, colorMode, bufferPosition, callback) ->
+	parse: (fileName, colorMode, position, callback) ->
 		@fs.open fileName, 'r', '0666', (err, fd) =>
 			throw err if err
 
-			stream = new InputStream(@fs, fd, bufferPosition)
+			validator = new Validator
 
-			if colorMode is HeaderSpec.colorModes.Indexed
-				colorData = stream.readString(768)
-				@_colorMode.colorData = colorData
-				# To do: Do something with this data
-			else if colorMode is HeaderSpec.colorModes.Duotone
-				console.log "Parsing duotone (#{colorMode}) color mode."
-				# To do: find duotone specification and add parsing duotone images
-			else
-				stream.skip(4)
+			stream = new InputStream(@fs, fd, position)
+
+			colorDataLength = stream.readInt()
+			validator.assertColorDataLength(colorDataLength)
+
+			colorData = stream.readString(colorDataLength)
+			@_colorMode = new ColorMode(colorDataLength, colorData)
 
 			callback(null, stream.position)
 
