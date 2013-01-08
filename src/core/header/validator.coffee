@@ -6,7 +6,7 @@ class Validator
 		@version = -1
 
 	assertSignature: (signature) ->
-		@assert(signature is Spec.signature, "Signature: always equal to '#{Spec.signature}'. Your value: #{signature}")
+		@assert.strictEqual(signature, Spec.signature, "Signature: always equal to '#{Spec.signature}'. Your value: #{signature}")
 
 	assertVersion: (@version) ->
 		@assert(@version in Spec.supportedVersions, "Supported version: always equal to #{Spec.supportedVersions[0]} (**PSB** version is #{Spec.supportedVersions[1]}.). Your value: #{Spec.version}")

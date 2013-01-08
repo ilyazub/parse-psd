@@ -1,4 +1,4 @@
 class Block
-	constructor: (@id) ->
+	constructor: (@id, @name, @size, @resourceData) ->
 
 module.exports = Block

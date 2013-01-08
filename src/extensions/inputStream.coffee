@@ -14,11 +14,11 @@ class InputStream
 
 		buffer[1] & 0xFF | (buffer[0] & 0xFF) << 8
 
-	readString: (length = 0, options = { shiftPosition: true }) ->
+	readString: (length = 0, options = { shiftPosition: true, encoding: "UTF-8" }) ->
 		if length is 0
 			return ""
 
-		@read(length, options).toString('UTF-8')
+		@read(length, options).toString(options.encoding)
 
 	skip: (length) ->
 		@_shiftPosition(length) if length > 0

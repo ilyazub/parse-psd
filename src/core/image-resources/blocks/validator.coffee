@@ -5,6 +5,6 @@ class Validator
 		@assert = require 'assert'
 
 	assertSignature: (signature) ->
-		@assert(signature is Spec.signature, "Signature should be #{Spec.signature}. Your value: #{signature}.")
+		@assert.strictEqual(signature, Spec.signature, "Signature should be #{Spec.signature}. Your value: #{signature}.")
 
 module.exports = Validator

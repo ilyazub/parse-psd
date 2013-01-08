@@ -16,8 +16,6 @@ class Parser
 
 			length = stream.readInt()
 
-			#resourceBlocks = stream.readString(length)
-
 			@imageResource = new ImageResource(length)
 
 			blocksParser = new BlockParser(fileName, stream.position) if length > 0

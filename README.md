@@ -5,4 +5,6 @@ Node.js PSD file parser.
 	* Color mode checked for mode
 
 # Tasks:
-	* To do: parse image resource block data.
+	* # Parse image resource block data:
+		*	Check for different resource ids and choose further actions
+		*	Check for parity of size of name and resourceData

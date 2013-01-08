@@ -18,20 +18,31 @@ class Parser
 
 			blocks = []
 
-			signature = stream.readString(4)
+			while @parseSignature(stream, validator)
+				stream.skip(4)
+
+				id = stream.readShort()
+
+				name = stream.readShort();
+				# Variable - Name: Pascal string, padded to make the size even (a null name consists of two bytes of 0)
+
+				resourceBlockSize = stream.readInt()
+
+				resourceData = stream.readString(resourceBlockSize)
+				# The resource data, described in the sections on the individual resource types. It is padded to make the size even.
+
+				# Check readme for go further
+
+				block = new Block(id, name, resourceBlockSize, resourceData)
+
+				blocks.push block
+
+	parseSignature: (stream, validator) ->
+		try
+			signature = stream.readString(4, { shiftPosition: false })
 			validator.assertSignature(signature)
-
-			id = stream.readShort()
-
-			nullName = stream.readShort({ shiftPosition: false });
-			# Variable - Name: Pascal string, padded to make the size even (a null name consists of two bytes of 0)
-			stream.skip(2) if nullName is 0
-			# To do: add name parsing if name isn't null.
-
-			resourceBlockSize = stream.readInt()
-			# To do: parse resource data.
-			# The resource data, described in the sections on the individual resource types. It is padded to make the size even.
-
-			# block = new Block(id)
+			true
+		catch e
+			false
 
 module.exports = Parser
